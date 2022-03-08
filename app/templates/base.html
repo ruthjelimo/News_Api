@@ -1,5 +1,21 @@
 {% extends 'bootstrap/base.html'%}
-<!-- Navbar block  --> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% if title %}
+        <title> {{ title }}</title>
+        {% else %}
+        <title> The hottest news around the globe </title>
+        {% endif %}
+    </head>
+    <body>
+        <!-- Navbar block  --> 
 {% block navbar %}
-    {% include 'navbar.html' %}
+{% include 'navbar.html' %}
 {% endblock %}
+        {% block content %}
+
+        {% endblock%}
+    </body>
+</html>
