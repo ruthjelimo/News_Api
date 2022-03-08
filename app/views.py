@@ -17,7 +17,7 @@ def index():
     business_news = get_news('business')
     sports_news = get_news('sports')
     title = 'Home - Welcome to The best News Review Website Online'
-    return render_template('index.html', title = title,tech_news=technology,business=business_news,sports=sports_news)
+    return render_template('index.html', title = title,tech_news=tech_news,business=business_news,sports=sports_news)
 
 @app.route('/news/<string:id>')
 def news(id):
