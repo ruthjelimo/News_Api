@@ -1,22 +1,55 @@
 {% extends 'base.html'%}
-{% import 'macros.html' as macro%}
-<!-- Content block -->
-{% block content %}
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="utf-8">
+    {% if title %}
+    <title> {{ title }}</title>
+    {% else %}
+    <title> The hottest news around the globe </title>
+    {% endif %}
+</head>
 
-<h3> Popular News</h3>
-<ul>
-    {{ macro.displayNewsList(tech_news)}}
-</ul>
- 
- <h3> Upcoming News </h3>
-<ul>
-    {{ macro.displayNewsList(business_news)}}
-</ul> 
- <h3>Now Showing</h3>
-<ul>
-    {{ macro.displayNewsList(sports_news)}}
-</ul>  
+<body>
+    {% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='/css/index.css')}}">
+    {% endblock %}
+    {% block content %}
+    <div class="body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>News Sources</h2>
+                    {% for top_news in top_news %}
+                    <div class="news_sources">
+                        <button>
+                            <h4><a href="{{ top_news.url}}">{{ top_news.source_name['name'] }}</a></h4>
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-8">
+                    <h2>Trending News</h2>
+                    {% for top_news in top_news %}
+                    <div class='top_news'>
+                        <h4><span>Article:</span> {{ top_news.title}}</h4>
+                        <p><span>Author:</span>{{ top_news.author }}</p>
+                        <img src="{{top_news.urlToImage }}" alt="">
+                        <p><span>Description:</span> {{ top_news.description }}</p>
+                        <p><span>Date of Publication:</span> {{ top_news.publishedAt }}</p>
+                        <p><span>Read:</span> {{ top_news.content }}</p>
+                        <button>
+                            <h4><a href="{{ top_news.url}}">Read More</a></h4>
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock%}
+</body>
 
-
-{% endblock%}
+</html>
