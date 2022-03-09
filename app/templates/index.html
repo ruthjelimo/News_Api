@@ -1,55 +1,63 @@
-{% extends 'base.html'%}
+{% extends 'base.html'%}{% block content %}
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    {% if title %}
+    <meta charset="utf-8"> {% if title %}
     <title> {{ title }}</title>
     {% else %}
-    <title> The hottest news around the globe </title>
+    <title> Welcome to the best News Review website </title>
     {% endif %}
 </head>
 
 <body>
-    {% block styles %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='/css/index.css')}}">
-    {% endblock %}
-    {% block content %}
-    <div class="body">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                    <h2>News Sources</h2>
-                    {% for top_news in top_news %}
-                    <div class="news_sources">
-                        <button>
-                            <h4><a href="{{ top_news.url}}">{{ top_news.source_name['name'] }}</a></h4>
-                        </button>
-                    </div>
-                    {% endfor %}
+
+    <div class="container-fluid">
+        <div class="jumbotron">{% for source in sources %}
+            <div class="card card-cascade wider">
+                <h1 style="text-align:center"> NEWS UPDATES. </h1>
+                {% for headlines in headlines %}
+
+
+                <h4>{{source.name}}</h4>
+                <div class="view view-cascade overlay">
+                    <img src="{{headlines.image}}" alt="image" class="img-thumbnail" width="50%">
                 </div>
-                <div class="col-md-8">
-                    <h2>Trending News</h2>
-                    {% for top_news in top_news %}
-                    <div class='top_news'>
-                        <h4><span>Article:</span> {{ top_news.title}}</h4>
-                        <p><span>Author:</span>{{ top_news.author }}</p>
-                        <img src="{{top_news.urlToImage }}" alt="">
-                        <p><span>Description:</span> {{ top_news.description }}</p>
-                        <p><span>Date of Publication:</span> {{ top_news.publishedAt }}</p>
-                        <p><span>Read:</span> {{ top_news.content }}</p>
-                        <button>
-                            <h4><a href="{{ top_news.url}}">Read More</a></h4>
-                        </button>
+
+                <div class="card-body card-body-cascade text-center pb-0">
+                    <h4 class="card-title"><strong>{{headlines.author}}</strong></h4>
+                    <p class="card-text">{{headlines.description}}</p>
+                    <a href="/article/{{source.id}}">
+                        <p class="card-text badge badge-success">Read more...</p>
+                    </a>
+                    <div class="card-footer text-muted text-center mt-4">
+                        <small class="text-muted">Publish date:{{headlines.time}}</small>
                     </div>
-                    {% endfor %}
+                    {% endfor %} {% endfor %}
                 </div>
+
             </div>
         </div>
     </div>
-    {% endblock%}
+    <style>
+        body {
+            background-image: url("https://www.xmple.com/wallpaper/linear-white-gradient-blue-highlight-1920x1080-c2-ffffff-87cefa-l-67-a-60-f-21.svg");
+            background-repeat: repeat;
+            background-size: cover;
+            background-position: left;
+        }
+        
+        .jumbotron {
+            background-color: transparent;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .jumbotron>h1 {
+            text-align: center;
+        }
+    </style>
 </body>
+{% endblock %}
 
 </html>
