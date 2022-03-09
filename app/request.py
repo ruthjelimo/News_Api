@@ -1,11 +1,7 @@
 import urllib.request,json
 from .models import News
 
-
-
-
 api_key = None
-
 
 def configure_request(app):
     
@@ -16,7 +12,6 @@ def get_news(articles):
 
     top_news_url = api_key
 
-    
 
     with urllib.request.urlopen(top_news_url) as url:
         get_news_data = url.read()
